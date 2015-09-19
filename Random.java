@@ -10,14 +10,14 @@ public class Random {
 
 		double temp = 1000000;
 		double coolingRate = 0.00002;
-		Denomination best = new Denomination();
+		Denomination best = new Denomination(false);
 
 		System.out.println("Random: Initial solution score: " + best.score(N));
 		System.out.println("Initial Result: " + Arrays.toString(best.coinsExact));
 
 		while (temp > 1) {
 			// System.out.println(count);
-			Denomination curr = new Denomination();
+			Denomination curr = new Denomination(false);
 			if (curr.score(N) < best.score(N)) {
 				best = curr;
 			}

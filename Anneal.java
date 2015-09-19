@@ -3,6 +3,7 @@ import java.util.Arrays;
 public class Anneal {
 
 	static double N = 1;
+	static boolean EXCHANGE_FLAG = true;
 
 	public static double acceptanceProbability(int energy, int newEnergy, double temperature) {
 		if (newEnergy < energy) {
@@ -22,7 +23,7 @@ public class Anneal {
 		double coolingRate = 0.00002;
 
 		// Initialize initial solution
-		Denomination currentSolution = new Denomination();
+		Denomination currentSolution = new Denomination(EXCHANGE_FLAG);
 		System.out.println("Annealing: Initial solution score: " + currentSolution.score(N));
 		System.out.println("Initial Result: " + Arrays.toString(currentSolution.coinsExact));
 
@@ -37,7 +38,7 @@ public class Anneal {
 			int c = 0;
 			//while (c < 100) {
 				// Create new neighbor
-				Denomination newSolution = new Denomination(currentSolution.generateNeighbor());
+				Denomination newSolution = new Denomination(currentSolution.generateNeighbor(), EXCHANGE_FLAG);
 				
 				// Get energy of solutions
 				int currentEnergy = currentSolution.score(N);
@@ -62,6 +63,7 @@ public class Anneal {
 
 		System.out.println("Final solution score: " + best.score(N));
 		System.out.println("Result: " + Arrays.toString(best.coinsExact));
+		System.out.println("DP: " + best.printDp());
 	}
 }
 

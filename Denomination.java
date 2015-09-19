@@ -6,20 +6,28 @@ public class Denomination {
 	int[] coinsExchange;
 	int[] bestExact;
 	int[] bestExchange;
+	boolean exchangeFlag;
 
-	public Denomination() {
+	public Denomination(boolean exchangeFlag) {
 		this.coinsExact = generateRand();
-		this.coinsExchange = generateRand(); //maybe they need to be the same??
+		this.exchangeFlag = exchangeFlag;
 		bestExact = new int[NUM_PENCES];
-		bestExchange = new int[NUM_PENCES+1];
 		exactDp();
-		exchangeDp();
+		if(exchangeFlag) {
+			bestExchange = new int[NUM_PENCES+1];
+			exchangeDp();
+		}
 	}
 
-	public Denomination(int[] c) {
+	public Denomination(int[] c, boolean exchangeFlag) {
 		this.coinsExact = c;
+		this.exchangeFlag = exchangeFlag;
 		bestExact = new int[NUM_PENCES];
 		exactDp();
+		if(exchangeFlag) {
+			this.bestExchange = new int[NUM_PENCES+1];
+			exchangeDp();
+ 		}
 	}
 
 	public void changeCoins(int[] newC) {
@@ -49,7 +57,7 @@ public class Denomination {
 		return result;
 	}
 	
-	//pick a random denomination we have and add 1 to it.
+	//pick a random denomination we have and vary it by "range".
 		public int[] generateNeighbor(int range) {
 			int[] result = new int[coinsExact.length];
 			for (int i = 0; i < result.length; i++) result[i] = coinsExact[i];
@@ -123,17 +131,36 @@ public class Denomination {
 
 	public int score(double N) {
 		int result = 0;
-		for (int i = 1; i < bestExact.length; i++) {
-			result += i % 5 == 0 ? bestExact[i] * N : bestExact[i];
+		if(exchangeFlag) {
+			for (int i = 1; i < bestExchange.length; i++) {
+				result += i % 5 == 0 ? bestExchange[i] * N : bestExchange[i];
+			}
+		}
+		else {
+			for (int i = 1; i < bestExact.length; i++) {
+				result += i % 5 == 0 ? bestExact[i] * N : bestExact[i];
+			}
 		}
 		return result;
 	}
 	
+	public String printDp() {
+		// TODO Auto-generated method stub
+		if(exchangeFlag) {
+			return Arrays.toString(bestExchange);
+		}
+		else {
+			return Arrays.toString(bestExact);
+		}
+	}
+	
 	public static void main(String[] args) {
-		Denomination d = new Denomination();
+		Denomination d = new Denomination(true);
 		System.out.println(Arrays.toString(d.coinsExact));
 		System.out.println(Arrays.toString(d.bestExact));
 		System.out.println(Arrays.toString(d.bestExchange));
 
 	}
+
+	
 }
