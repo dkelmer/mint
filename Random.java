@@ -13,7 +13,7 @@ public class Random {
 		Denomination best = new Denomination();
 
 		System.out.println("Random: Initial solution score: " + best.score(N));
-		System.out.println("Initial Result: " + Arrays.toString(best.coins));
+		System.out.println("Initial Result: " + Arrays.toString(best.coinsExact));
 
 		while (temp > 1) {
 			// System.out.println(count);
@@ -24,7 +24,7 @@ public class Random {
 			temp *= 1 - coolingRate;
 		}
 		System.out.println("Final solution distance: " + best.score(N));
-		System.out.println("Tour: " + Arrays.toString(best.coins));
+		System.out.println("Tour: " + Arrays.toString(best.coinsExact));
 	}
 
 }
