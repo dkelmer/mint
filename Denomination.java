@@ -38,8 +38,8 @@ public class Denomination {
 		int[] result = new int[coins.length];
 		for (int i = 0; i < result.length; i++) result[i] = coins[i];
 		int rand = 1+(int)(Math.random()*(coins.length-1)); //cant modify the first coin (has value 1)
-		result[rand] += 1;
-		if (result[rand] >= 239) result[rand] = generateCoin(); //reroll coin if value above 239
+		result[rand] += (int)(Math.random()*5 + 1) * (Math.random()>0.5? 1 : -1); //add/subtract by some val in (-5,5)
+		if (result[rand] >= 239 || result[rand] <= 1) result[rand] = generateCoin(); //reroll coin if value above 239
 		return result;
 	}
 
