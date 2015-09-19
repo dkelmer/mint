@@ -21,7 +21,7 @@ public class Anneal {
 		double temp = 100000; //changed to 100000 from 1 million
 		double coolingRate = 0.00002;
 
-		// Initialize intial solution
+		// Initialize initial solution
 		Denomination currentSolution = new Denomination();
 		System.out.println("Annealing: Initial solution score: " + currentSolution.score(N));
 		System.out.println("Initial Result: " + Arrays.toString(currentSolution.coinsExact));
@@ -35,7 +35,7 @@ public class Anneal {
 			//System.out.println("HERE! temp = " + temp);
 			//System.out.println("curr best: " + Arrays.toString(best.coins));
 			int c = 0;
-			//while (c < 50) {
+			//while (c < 100) {
 				// Create new neighbor
 				Denomination newSolution = new Denomination(currentSolution.generateNeighbor());
 				

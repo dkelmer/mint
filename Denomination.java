@@ -9,9 +9,9 @@ public class Denomination {
 
 	public Denomination() {
 		this.coinsExact = generateRand();
-		this.coinsExchange = generateRand();
+		this.coinsExchange = generateRand(); //maybe they need to be the same??
 		bestExact = new int[NUM_PENCES];
-		bestExchange = new int[NUM_PENCES];
+		bestExchange = new int[NUM_PENCES+1];
 		exactDp();
 		exchangeDp();
 	}
@@ -93,7 +93,32 @@ public class Denomination {
 	}
 	
 	private void exchangeDp() {
+		//initialize whole array to infinity 
+		for (int i = 0; i < NUM_PENCES; i++) {
+			bestExchange[i] = Integer.MAX_VALUE;
+		}
 		
+		//set 240,0 to zero
+		bestExchange[NUM_PENCES] = 0;
+		bestExchange[0] = 0;
+		
+		//set all denominations to 1
+		for(int denomination : coinsExact) {
+			bestExchange[denomination] = 1;
+		}
+		
+		//start filling in dp from the end
+		for(int i = NUM_PENCES-1; i >= 1; i--) {
+			int min = Math.min(bestExact[i], bestExact[240-i]);
+			for (int denomination : coinsExact) {
+				if(i + denomination <= 240) {
+					if (bestExchange[i+denomination] + 1 < min) {
+						min = bestExchange[i+denomination] + 1;
+					}
+				}
+			}
+			bestExchange[i] = min;
+		}		
 	}
 
 	public int score(double N) {
@@ -102,5 +127,13 @@ public class Denomination {
 			result += i % 5 == 0 ? bestExact[i] * N : bestExact[i];
 		}
 		return result;
+	}
+	
+	public static void main(String[] args) {
+		Denomination d = new Denomination();
+		System.out.println(Arrays.toString(d.coinsExact));
+		System.out.println(Arrays.toString(d.bestExact));
+		System.out.println(Arrays.toString(d.bestExchange));
+
 	}
 }
