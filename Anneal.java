@@ -2,8 +2,8 @@ import java.util.Arrays;
 
 public class Anneal {
 
-	static double N = 1;
-	static boolean EXCHANGE_FLAG = true;
+	static double N = 3;
+	static boolean EXCHANGE_FLAG = false;
 
 	public static double acceptanceProbability(int energy, int newEnergy, double temperature) {
 		if (newEnergy < energy) {
@@ -38,7 +38,14 @@ public class Anneal {
 			int c = 0;
 			//while (c < 100) {
 				// Create new neighbor
-				Denomination newSolution = new Denomination(currentSolution.generateNeighbor(), EXCHANGE_FLAG);
+				Denomination newSolution = null;
+				
+				if(temp < 10) {
+					newSolution = new Denomination(currentSolution.generateNeighbor(1), EXCHANGE_FLAG);
+				}
+				else {
+					newSolution = new Denomination(currentSolution.generateNeighbor(), EXCHANGE_FLAG);
+				}
 				
 				// Get energy of solutions
 				int currentEnergy = currentSolution.score(N);
