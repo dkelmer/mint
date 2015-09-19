@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class Anneal {
 
-	static double N = 3;
+	static double N = 1;
 
 	public static double acceptanceProbability(int energy, int newEnergy, double temperature) {
 		if (newEnergy < energy) {
@@ -16,7 +16,7 @@ public class Anneal {
 		// uncomment when ready.
 		//N = Integer.parseInt(args[0]);
 		
-		System.out.println("args[0] = " + args[0]);
+		//System.out.println("args[0] = " + args[0]);
 
 		double temp = 100000; //changed to 100000 from 1 million
 		double coolingRate = 0.00002;
