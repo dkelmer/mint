@@ -29,8 +29,8 @@ public class Anneal {
 
 		// Loop until system has cooled
 		while (temp > 1) {
-			// Create new neighbour tour
-			Denomination newSolution = new Denomination();
+			// Create new neighbour
+			Denomination newSolution = new Denomination(currentSolution.generateNeighbor());
 
 			// Get energy of solutions
 			int currentEnergy = currentSolution.score(N);

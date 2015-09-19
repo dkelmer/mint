@@ -22,10 +22,24 @@ public class Denomination {
 		dp();
 	}
 
-	private static int[] generateRand() {
+	private int[] generateRand() {
 		int[] result = { 1, 0, 0, 0, 0, 0, 0 };
 		for (int i = 1; i < result.length; i++)
-			result[i] = 2 + (int) (Math.random() * 238);
+			result[i] = generateCoin();
+		return result;
+	}
+	
+	private int generateCoin() {
+		return 2 + (int) (Math.random() * 238); //value form 2 to 239.
+	}
+	
+	//pick a random denomination we have and add 1 to it.
+	public int[] generateNeighbor() {
+		int[] result = new int[coins.length];
+		for (int i = 0; i < result.length; i++) result[i] = coins[i];
+		int rand = 1+(int)(Math.random()*(coins.length-1)); //cant modify the first coin (has value 1)
+		result[rand] += 1;
+		if (result[rand] >= 239) result[rand] = generateCoin(); //reroll coin if value above 239
 		return result;
 	}
 
