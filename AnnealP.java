@@ -4,7 +4,7 @@ public class AnnealP {
 
 	static double N = 3;
 	static boolean EXCHANGE_FLAG = false;
-	static int NUM_THREADS = 100;
+	static int NUM_THREADS = 200;
 
 	public static double acceptanceProbability(int energy, int newEnergy, double temperature) {
 		if (newEnergy < energy) {
@@ -36,7 +36,7 @@ public class AnnealP {
 
 		// Loop until system has cooled
 		while (temp > 1) {
-//			System.out.println("HERE! temp = " + temp);
+			//System.out.println("HERE! temp = " + temp);
 			// System.out.println("curr best: " + Arrays.toString(best.coins));
 			int c = 0;
 			Thread[] threads = new Thread[NUM_THREADS]; //we execute these.
