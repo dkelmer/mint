@@ -48,7 +48,7 @@ public class Denomination {
 	
 	//pick a random denomination we have and add 1 to it.
 	public int[] generateNeighbor() {
-		return generateNeighbor(20);
+		return generateNeighbor(10);
 	}
 	
 	//pick a random denomination we have and vary it by "range".
