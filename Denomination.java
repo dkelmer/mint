@@ -48,13 +48,7 @@ public class Denomination {
 	
 	//pick a random denomination we have and add 1 to it.
 	public int[] generateNeighbor() {
-		int[] result = new int[coinsExact.length];
-		for (int i = 0; i < result.length; i++) result[i] = coinsExact[i];
-		int rand = 1+(int)(Math.random()*(coinsExact.length-1)); //cant modify the first coin (has value 1)
-		int delta = (int)(Math.random()*3 + 1) * (Math.random()>0.5? 1 : -1); // get delta bw (-5,5)
-		result[rand] += delta; //change it!
-		if (result[rand] >= 239 || result[rand] <= 1) result[rand] = generateCoin(); //reroll coin if value above 239
-		return result;
+		return generateNeighbor(20);
 	}
 	
 	//pick a random denomination we have and vary it by "range".
