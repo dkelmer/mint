@@ -72,7 +72,7 @@ public class Denomination {
 		for (int i = 1; i < result.length; i++) result[i] = (coinsExact[i] / 5) * 5; //rounds to nearest multple of five
 		
 		int rand = 1+(int)(Math.random()*(coinsExact.length-1)); //cant modify the first coin (has value 1)
-		int delta = 5 * (Math.random()>0.5? 1 : -1); // add or subtract 5
+		int delta = 5*(int)(1+Math.random()*5) * (Math.random()>0.5? 1 : -1); // add/subtract by multiples of 5 in range of [-25,25]
 		result[rand] += delta; //change it!
 		if (result[rand] >= 239 || result[rand] <= 1) result[rand] = generateCoin(true); //reroll coin if value above 239
 		return result;

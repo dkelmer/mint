@@ -3,11 +3,11 @@ import java.util.Arrays;
 public class Driver {
 	static int N;
 	static boolean exchange;
-	static boolean DEBUG_MODE = false; //turn this off for turnin
+	static boolean DEBUG_MODE = true; //turn this off for turnin
 	
 	//sample args: java Driver 5 exchange
 	public static void main(String[] args) throws InterruptedException {
-		N = 1000;
+		N = 4;
 		exchange = false;
 		
 		//N = Integer.parseInt(args[0]);
