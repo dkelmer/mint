@@ -2,15 +2,26 @@ import java.util.Arrays;
 
 public class Random {
 
-	static int N = 100;
+	int N = 100;
+	Denomination best;
+	boolean EXCHANGE_FLAG;
+	
+	public Random(int n) {
+		N = n;
+	}
+	
+	public Random(int n, boolean exchange) {
+		N = n;
+		this.EXCHANGE_FLAG = exchange;
+	}
 
-	public static void main(String[] args) {
+	void process() {
 		// uncomment when ready
 		// N = Integer.parseInt(args[0]);
 
 		double temp = 1000000;
 		double coolingRate = 0.00002;
-		Denomination best = new Denomination(false);
+		best = new Denomination(EXCHANGE_FLAG);
 
 		System.out.println("Random: Initial solution score: " + best.score(N));
 		System.out.println("Initial Result: " + Arrays.toString(best.coinsExact));
@@ -26,5 +37,4 @@ public class Random {
 		System.out.println("Final solution distance: " + best.score(N));
 		System.out.println("Tour: " + Arrays.toString(best.coinsExact));
 	}
-
 }
