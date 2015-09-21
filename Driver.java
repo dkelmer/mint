@@ -7,10 +7,12 @@ public class Driver {
 	
 	//sample args: java Driver 5 exchange
 	public static void main(String[] args) throws InterruptedException {
-		//N = Integer.parseInt(args[0]);
-		//exchange = args[1].equals("exchange")? true : false; //if 2nd param isn't "exchange" then it runs exact.
 		N = 1000;
 		exchange = false;
+		
+		//N = Integer.parseInt(args[0]);
+		//exchange = args[1].equals("exchange")? true : false; //if 2nd param isn't "exchange" then it runs exact.
+		
 		
 		Random.DEBUG = DEBUG_MODE;
 		Anneal.DEBUG = DEBUG_MODE;
