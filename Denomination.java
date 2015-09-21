@@ -69,7 +69,10 @@ public class Denomination {
 	public int[] generateNeighbor(boolean multiFive) {
 		int[] result = new int[coinsExact.length];
 		result[0] = 1;
-		for (int i = 1; i < result.length; i++) result[i] = (coinsExact[i] / 5) * 5; //rounds to nearest multple of five
+		for (int i = 1; i < result.length; i++) {
+			result[i] = (coinsExact[i] / 5) * 5; //rounds down to nearest multiple of five
+			if (result[i] == 0) result[i] = 5; //may get rounded to 0: in that case set it to 5.
+		}
 		
 		int rand = 1+(int)(Math.random()*(coinsExact.length-1)); //cant modify the first coin (has value 1)
 		int delta = 5*(int)(1+Math.random()*5) * (Math.random()>0.5? 1 : -1); // add/subtract by multiples of 5 in range of [-25,25]

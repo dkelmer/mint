@@ -14,6 +14,7 @@ public class Driver {
 		//exchange = args[1].equals("exchange")? true : false; //if 2nd param isn't "exchange" then it runs exact.
 		
 		Random.DEBUG = DEBUG_MODE;
+		RandomFive.DEBUG = DEBUG_MODE;
 		Anneal.DEBUG = DEBUG_MODE;
 		AnnealNeighbors.DEBUG = DEBUG_MODE;
 		AnnealP.DEBUG = DEBUG_MODE;
@@ -25,6 +26,11 @@ public class Driver {
 		//run each one and compare it to best.
 		Random r = new Random(N, exchange); r.process();
 		best = r.best; bestScore = r.bestScore;
+		
+		RandomFive rf = new RandomFive(N, exchange); rf.process();
+		if (rf.bestScore < bestScore) {
+			best = rf.best; bestScore = rf.bestScore;
+		}
 		
 		Anneal a = new Anneal(N, exchange); a.process();
 		if (a.bestScore < bestScore) {
