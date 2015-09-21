@@ -2,6 +2,8 @@ import java.util.Arrays;
 
 public class AnnealP {
 
+	static boolean DEBUG = true;
+	
 	double N = 3;
 	boolean EXCHANGE_FLAG = false;
 	int NUM_THREADS = 200;
@@ -35,8 +37,11 @@ public class AnnealP {
 		DenominationP currentSolution = new DenominationP(EXCHANGE_FLAG);
 		currentSolution.run();
 
-		System.out.println("Annealing Parallel: Initial solution score: " + currentSolution.score(N));
-		System.out.println("Initial Result: " + Arrays.toString(currentSolution.coinsExact));
+		if (DEBUG) {
+			System.out.println("Annealing Parallel: Initial solution score: " + currentSolution.score(N));
+			System.out.println("	Initial Result: " + Arrays.toString(currentSolution.coinsExact));
+		}
+		
 
 		// Set as current best
 		best = currentSolution;
@@ -87,11 +92,14 @@ public class AnnealP {
 			temp *= 1 - coolingRate;
 		}
 
-		long stopTime = System.currentTimeMillis();
-		long elapsedTime = stopTime - startTime;
-		System.out.println("Elapsed Time: " + elapsedTime/1000 + " seconds");
-		System.out.println("Final solution score: " + best.score(N));
-		System.out.println("Result: " + Arrays.toString(best.coinsExact));
-		System.out.println("DP: " + best.printDp());
+		if (DEBUG) {
+			long stopTime = System.currentTimeMillis();
+			long elapsedTime = stopTime - startTime;
+			System.out.println("	Elapsed Time: " + elapsedTime/1000 + " seconds");
+			System.out.println("	Final solution score: " + best.score(N));
+			System.out.println("	Result: " + Arrays.toString(best.coinsExact));
+			System.out.println("	DP: " + best.printDp());
+		}
+		
 	}
 }

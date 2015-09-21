@@ -3,7 +3,7 @@ import java.util.Arrays;
 //Runnable -> has method run() which does the DP.
 //Constructor does NOT perform DP, only sets denomination count.
 
-public class DenominationP implements Runnable {
+public class DenominationP extends Denomination implements Runnable {
 	static int NUM_PENCES = 240;
 	int[] coinsExact;
 	int[] coinsExchange;
@@ -12,12 +12,14 @@ public class DenominationP implements Runnable {
 	boolean exchangeFlag;
 
 	public DenominationP(boolean exchangeFlag) {
+		super(exchangeFlag);
 		this.coinsExact = generateRand();
 		this.exchangeFlag = exchangeFlag;
 		bestExact = new int[NUM_PENCES];
 	}
 
 	public DenominationP(int[] c, boolean exchangeFlag) {
+		super(exchangeFlag);
 		this.coinsExact = c;
 		this.exchangeFlag = exchangeFlag;
 		bestExact = new int[NUM_PENCES];

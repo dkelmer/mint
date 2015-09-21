@@ -1,10 +1,13 @@
 import java.util.Arrays;
 
 public class Anneal {
-
+	
+	static boolean DEBUG = true;
+	
 	int N = 3;
 	boolean EXCHANGE_FLAG = false;
 	Denomination best;
+	long bestScore;
 
 	public Anneal(int n) {
 		N = n;
@@ -29,12 +32,15 @@ public class Anneal {
 
 		// Initialize initial solution
 		Denomination currentSolution = new Denomination(EXCHANGE_FLAG);
-		System.out.println("Annealing: Initial solution score: " + currentSolution.score(N));
-		System.out.println("Initial Result: " + Arrays.toString(currentSolution.coinsExact));
+		if (DEBUG) {
+			System.out.println("Annealing: Initial solution score: " + currentSolution.score(N));
+			System.out.println("	Initial Result: " + Arrays.toString(currentSolution.coinsExact));
+		}
+		
 
 		// Set as current best
 		best = currentSolution;
-		long bestScore = currentSolution.score(N);
+		bestScore = currentSolution.score(N);
 
 		// Loop until system has cooled
 		while (temp > 1) {
@@ -72,9 +78,11 @@ public class Anneal {
 			temp *= 1 - coolingRate;
 		}
 
-		System.out.println("Final solution score: " + best.score(N));
-		System.out.println("Result: " + Arrays.toString(best.coinsExact));
-		System.out.println("DP: " + best.printDp());
+		if (DEBUG) {
+			System.out.println("	Final solution score: " + best.score(N));
+			System.out.println("	Coins: " + Arrays.toString(best.coinsExact));
+			System.out.println("	DP: " + best.printDp());
+		}
 	}
 }
 

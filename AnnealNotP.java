@@ -2,6 +2,8 @@ import java.util.Arrays;
 
 public class AnnealNotP {
 
+	static boolean DEBUG = true;
+	
 	double N = 3;
 	boolean EXCHANGE_FLAG = false;
 	Denomination best;
@@ -27,19 +29,17 @@ public class AnnealNotP {
 	
 	void process() {
 		long startTime = System.currentTimeMillis();
-		// uncomment when ready.
-		// N = Integer.parseInt(args[0]);
-
-		// System.out.println("args[0] = " + args[0]);
-
 		double temp = 10000; // changed to 100000 from 1 million
 		double coolingRate = 0.003;
 
 		// Initialize initial solution
 		Denomination currentSolution = new Denomination(EXCHANGE_FLAG);
 
-		System.out.println("Annealing Not Parallel: Initial solution score: " + currentSolution.score(N));
-		System.out.println("Initial Result: " + Arrays.toString(currentSolution.coinsExact));
+		if (DEBUG) {
+			System.out.println("Annealing Not Parallel: Initial solution score: " + currentSolution.score(N));
+			System.out.println("	Initial Result: " + Arrays.toString(currentSolution.coinsExact));
+		}
+		
 
 		// Set as current best
 		best = currentSolution;
@@ -82,11 +82,14 @@ public class AnnealNotP {
 			temp *= 1 - coolingRate;
 		}
 
-		long stopTime = System.currentTimeMillis();
-		long elapsedTime = stopTime - startTime;
-		System.out.println("Elapsed Time: " + elapsedTime/1000 + " seconds");
-		System.out.println("Final solution score: " + best.score(N));
-		System.out.println("Result: " + Arrays.toString(best.coinsExact));
-		System.out.println("DP: " + best.printDp());
+		if (DEBUG) {
+			long stopTime = System.currentTimeMillis();
+			long elapsedTime = stopTime - startTime;
+			System.out.println("	Elapsed Time: " + elapsedTime/1000 + " seconds");
+			System.out.println("	Final solution score: " + best.score(N));
+			System.out.println("	Result: " + Arrays.toString(best.coinsExact));
+			System.out.println("	DP: " + best.printDp());
+		}
+	
 	}
 }
