@@ -2,23 +2,31 @@ import java.util.Arrays;
 
 public class AnnealP {
 
-	static double N = 3;
-	static boolean EXCHANGE_FLAG = false;
-	static int NUM_THREADS = 200;
+	double N = 3;
+	boolean EXCHANGE_FLAG = false;
+	int NUM_THREADS = 200;
+	DenominationP best;
+	long bestScore;
+	
+	public AnnealP(int n) {
+		N = n;
+		EXCHANGE_FLAG = false;
+	}
 
-	public static double acceptanceProbability(int energy, int newEnergy, double temperature) {
+	public AnnealP(int n, boolean exchange) {
+		N = n;
+		this.EXCHANGE_FLAG = exchange;
+	}
+	
+	public double acceptanceProbability(int energy, int newEnergy, double temperature) {
 		if (newEnergy < energy) {
 			return 1.0;
 		}
 		return Math.exp((energy - newEnergy) / temperature);
 	}
 
-	public static void main(String[] args) throws InterruptedException {
+	void process() throws InterruptedException {
 		long startTime = System.currentTimeMillis();
-		// uncomment when ready.
-		// N = Integer.parseInt(args[0]);
-
-		// System.out.println("args[0] = " + args[0]);
 
 		double temp = 10000; // changed to 100000 from 1 million
 		double coolingRate = 0.003;
@@ -31,8 +39,8 @@ public class AnnealP {
 		System.out.println("Initial Result: " + Arrays.toString(currentSolution.coinsExact));
 
 		// Set as current best
-		DenominationP best = currentSolution;
-		long bestScore = currentSolution.score(N);
+		best = currentSolution;
+		bestScore = currentSolution.score(N);
 
 		// Loop until system has cooled
 		while (temp > 1) {

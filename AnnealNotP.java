@@ -5,6 +5,7 @@ public class AnnealNotP {
 	double N = 3;
 	boolean EXCHANGE_FLAG = false;
 	Denomination best;
+	long bestScore;
 	int NUM_THREADS = 200;
 
 	public AnnealNotP(int n) {
@@ -42,7 +43,7 @@ public class AnnealNotP {
 
 		// Set as current best
 		best = currentSolution;
-		long bestScore = currentSolution.score(N);
+		bestScore = currentSolution.score(N);
 
 		// Loop until system has cooled
 		while (temp > 1) {

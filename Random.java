@@ -4,7 +4,9 @@ public class Random {
 
 	int N = 100;
 	Denomination best;
+	long bestScore;
 	boolean EXCHANGE_FLAG;
+	
 	
 	public Random(int n) {
 		N = n;
@@ -22,15 +24,18 @@ public class Random {
 		double temp = 1000000;
 		double coolingRate = 0.00002;
 		best = new Denomination(EXCHANGE_FLAG);
-
+		bestScore = best.score(N);
+		
 		System.out.println("Random: Initial solution score: " + best.score(N));
 		System.out.println("Initial Result: " + Arrays.toString(best.coinsExact));
 
 		while (temp > 1) {
 			// System.out.println(count);
 			Denomination curr = new Denomination(false);
-			if (curr.score(N) < best.score(N)) {
+			long currScore = curr.score(N);
+			if (currScore < bestScore) {
 				best = curr;
+				bestScore = currScore;
 			}
 			temp *= 1 - coolingRate;
 		}
