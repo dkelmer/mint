@@ -13,12 +13,11 @@ public class Driver {
 		//N = Integer.parseInt(args[0]);
 		//exchange = args[1].equals("exchange")? true : false; //if 2nd param isn't "exchange" then it runs exact.
 		
-		
 		Random.DEBUG = DEBUG_MODE;
 		Anneal.DEBUG = DEBUG_MODE;
-		AnnealNotP.DEBUG = DEBUG_MODE;
+		AnnealNeighbors.DEBUG = DEBUG_MODE;
 		AnnealP.DEBUG = DEBUG_MODE;
-		AnnealNotPForFive.DEBUG = DEBUG_MODE;
+		AnnealNeighborsFive.DEBUG = DEBUG_MODE;
 		
 		Denomination best;
 		long bestScore;
@@ -32,12 +31,12 @@ public class Driver {
 			best = a.best; bestScore = a.bestScore;
 		}
 		
-		AnnealNotP anp = new AnnealNotP(N, exchange); anp.process();
+		AnnealNeighbors anp = new AnnealNeighbors(N, exchange); anp.process();
 		if (anp.bestScore < bestScore) {
 			best = anp.best; bestScore = anp.bestScore;
 		}
 		
-		AnnealNotPForFive anpff = new AnnealNotPForFive(N, exchange); anpff.process();
+		AnnealNeighborsFive anpff = new AnnealNeighborsFive(N, exchange); anpff.process();
 		if (anpff.bestScore < bestScore) {
 			best = anpff.best; bestScore = anpff.bestScore;
 		}
