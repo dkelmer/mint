@@ -7,12 +7,14 @@ public class Driver {
 	
 	//sample args: java Driver 5 exchange
 	public static void main(String[] args) throws InterruptedException {
-		N = 4;
+		N = 500;
 		exchange = false;
 		
 		//N = Integer.parseInt(args[0]);
 		//exchange = args[1].equals("exchange")? true : false; //if 2nd param isn't "exchange" then it runs exact.
 		
+		
+		//set debug mode
 		Random.DEBUG = DEBUG_MODE;
 		RandomFive.DEBUG = DEBUG_MODE;
 		Anneal.DEBUG = DEBUG_MODE;
@@ -20,6 +22,7 @@ public class Driver {
 		AnnealP.DEBUG = DEBUG_MODE;
 		AnnealNeighborsFive.DEBUG = DEBUG_MODE;
 		
+		//store the best.
 		Denomination best;
 		long bestScore;
 		
@@ -27,6 +30,7 @@ public class Driver {
 		Random r = new Random(N, exchange); r.process();
 		best = r.best; bestScore = r.bestScore;
 		
+		for (int i = 0; i < 2; i++) {
 		RandomFive rf = new RandomFive(N, exchange); rf.process();
 		if (rf.bestScore < bestScore) {
 			best = rf.best; bestScore = rf.bestScore;
@@ -49,6 +53,7 @@ public class Driver {
 		
 		if (DEBUG_MODE) System.out.println(bestScore);
 		printRes(best.coinsExact);
+		}
 	}
 	
 	public static void printRes(int[] arr) {

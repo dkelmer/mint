@@ -36,7 +36,7 @@ public class AnnealNeighbors {
 		Denomination currentSolution = new Denomination(EXCHANGE_FLAG);
 
 		if (DEBUG) {
-			System.out.println("Annealing Not Parallel: Initial solution score: " + currentSolution.score(N));
+			System.out.println("Annealing Neighbors: Initial solution score: " + currentSolution.score(N));
 			System.out.println("	Initial Result: " + Arrays.toString(currentSolution.coinsExact));
 		}
 		

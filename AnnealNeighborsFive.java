@@ -37,7 +37,7 @@ static boolean DEBUG = true;
 		currentSolution.changeCoins(currentSolution.generateNeighbor(true)); //round to nearest multiple of five
 
 		if (DEBUG) {
-			System.out.println("Annealing Not Parallel with Multiples of Five: Initial solution score: " + currentSolution.score(N));
+			System.out.println("Annealing Neighbors with Multiples of Five: Initial solution score: " + currentSolution.score(N));
 			System.out.println("	Initial Result: " + Arrays.toString(currentSolution.coinsExact));
 		}
 		
