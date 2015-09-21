@@ -1,8 +1,8 @@
 import java.util.Arrays;
 
-public class AnnealNotP {
+public class AnnealNotPForFive {
 
-	static boolean DEBUG = true;
+static boolean DEBUG = true;
 	
 	double N = 3;
 	boolean EXCHANGE_FLAG = false;
@@ -10,12 +10,12 @@ public class AnnealNotP {
 	long bestScore;
 	int NUM_THREADS = 200; //in AnnealNotP it's actually not threads, just neighbors.
 
-	public AnnealNotP(int n) {
+	public AnnealNotPForFive(int n) {
 		N = n;
 		EXCHANGE_FLAG = false;
 	}
 
-	public AnnealNotP(int n, boolean exchange) {
+	public AnnealNotPForFive(int n, boolean exchange) {
 		N = n;
 		this.EXCHANGE_FLAG = exchange;
 	}
@@ -34,9 +34,10 @@ public class AnnealNotP {
 
 		// Initialize initial solution
 		Denomination currentSolution = new Denomination(EXCHANGE_FLAG);
+		currentSolution.changeCoins(currentSolution.generateNeighbor(true)); //round to nearest multiple of five
 
 		if (DEBUG) {
-			System.out.println("Annealing Not Parallel: Initial solution score: " + currentSolution.score(N));
+			System.out.println("Annealing Not Parallel with Multiples of Five: Initial solution score: " + currentSolution.score(N));
 			System.out.println("	Initial Result: " + Arrays.toString(currentSolution.coinsExact));
 		}
 		
@@ -54,9 +55,9 @@ public class AnnealNotP {
 			for (int c = 0; c < NUM_THREADS; c++) { // create neighbors
 				Denomination newSolution = null;
 				if (temp < 10) {
-					newSolution = new Denomination(currentSolution.generateNeighbor(1), EXCHANGE_FLAG);
+					newSolution = new Denomination(currentSolution.generateNeighbor(true), EXCHANGE_FLAG);
 				} else {
-					newSolution = new Denomination(currentSolution.generateNeighbor(), EXCHANGE_FLAG);
+					newSolution = new Denomination(currentSolution.generateNeighbor(true), EXCHANGE_FLAG);
 				}
 				neighbors[c] = newSolution;
 			}
@@ -92,4 +93,5 @@ public class AnnealNotP {
 		}
 	
 	}
+
 }

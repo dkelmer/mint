@@ -43,7 +43,11 @@ public class Denomination {
 	}
 	
 	private int generateCoin() {
-		return 2 + (int) (Math.random() * 238); //value form 2 to 239.
+		return 2 + (int) (Math.random() * 238); //value from 2 to 239.
+	}
+	
+	private int generateCoin(boolean multipleFive) {
+		return 5* ((int)(Math.random()*47)+1); //all multiples of five from 5 to 235.
 	}
 	
 	//pick a random denomination we have and add 1 to it.
@@ -61,14 +65,20 @@ public class Denomination {
 			if (result[rand] >= 239 || result[rand] <= 1) result[rand] = generateCoin(); //reroll coin if value above 239
 			return result;
 		}
-
-	// test
-	private void setBestAllTwos() {
-		for (int i = 1; i < NUM_PENCES; i++) {
-			bestExact[i] = 2;
-		}
-		bestExact[0] = 0;
+		
+	public int[] generateNeighbor(boolean multiFive) {
+		int[] result = new int[coinsExact.length];
+		result[0] = 1;
+		for (int i = 1; i < result.length; i++) result[i] = (coinsExact[i] / 5) * 5; //rounds to nearest multple of five
+		
+		int rand = 1+(int)(Math.random()*(coinsExact.length-1)); //cant modify the first coin (has value 1)
+		int delta = 5 * (Math.random()>0.5? 1 : -1); // add or subtract 5
+		result[rand] += delta; //change it!
+		if (result[rand] >= 239 || result[rand] <= 1) result[rand] = generateCoin(true); //reroll coin if value above 239
+		return result;
 	}
+
+		
 
 	private void exactDp() {
 		for (int i = 0; i < NUM_PENCES; i++)
@@ -147,14 +157,4 @@ public class Denomination {
 			return Arrays.toString(bestExact);
 		}
 	}
-	
-	public static void main(String[] args) {
-		Denomination d = new Denomination(true);
-		System.out.println(Arrays.toString(d.coinsExact));
-		System.out.println(Arrays.toString(d.bestExact));
-		System.out.println(Arrays.toString(d.bestExchange));
-
-	}
-
-	
 }

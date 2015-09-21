@@ -3,19 +3,20 @@ import java.util.Arrays;
 public class Driver {
 	static int N;
 	static boolean exchange;
-	static boolean DEBUG_MODE = true; //turn this off for turnin
+	static boolean DEBUG_MODE = false; //turn this off for turnin
 	
 	//sample args: java Driver 5 exchange
 	public static void main(String[] args) throws InterruptedException {
 		//N = Integer.parseInt(args[0]);
 		//exchange = args[1].equals("exchange")? true : false; //if 2nd param isn't "exchange" then it runs exact.
-		N = 2;
-		exchange = true;
+		N = 1000;
+		exchange = false;
 		
 		Random.DEBUG = DEBUG_MODE;
 		Anneal.DEBUG = DEBUG_MODE;
 		AnnealNotP.DEBUG = DEBUG_MODE;
 		AnnealP.DEBUG = DEBUG_MODE;
+		AnnealNotPForFive.DEBUG = DEBUG_MODE;
 		
 		Denomination best;
 		long bestScore;
@@ -34,12 +35,14 @@ public class Driver {
 			best = anp.best; bestScore = anp.bestScore;
 		}
 		
-//		AnnealP ap = new AnnealP(N, exchange);
-//		ap.process();
-//		if (ap.bestScore < bestScore) {
-//			best = ap.best; bestScore = ap.bestScore;
-//		}
-//		
+		AnnealNotPForFive anpff = new AnnealNotPForFive(N, exchange); anpff.process();
+		if (anpff.bestScore < bestScore) {
+			best = anpff.best; bestScore = anpff.bestScore;
+		}
+		
+		
+		
+		if (DEBUG_MODE) System.out.println(bestScore);
 		printRes(best.coinsExact);
 	}
 	
