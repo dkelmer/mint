@@ -41,8 +41,6 @@ public class Driver {
 			best = anpff.best; bestScore = anpff.bestScore;
 		}
 		
-		
-		
 		if (DEBUG_MODE) System.out.println(bestScore);
 		printRes(best.coinsExact);
 	}
