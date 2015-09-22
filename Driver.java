@@ -3,7 +3,7 @@ import java.util.Arrays;
 public class Driver {
 	static double N;
 	static boolean exchange;
-	static boolean DEBUG_MODE = true; //turn this off for turnin
+	static boolean DEBUG_MODE = false; //turn this off for turnin
 	static String winningStrategy = null;
 	
 	//sample args: java Driver 5 exchange
