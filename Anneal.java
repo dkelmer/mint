@@ -49,7 +49,7 @@ public class Anneal {
 			Denomination newSolution = null;
 
 			if (temp < 10) {
-				newSolution = new Denomination(currentSolution.generateNeighbor(1), EXCHANGE_FLAG);
+				newSolution = new Denomination(currentSolution.generateNeighbor(3), EXCHANGE_FLAG);
 			} else {
 				newSolution = new Denomination(currentSolution.generateNeighbor(), EXCHANGE_FLAG);
 			}
