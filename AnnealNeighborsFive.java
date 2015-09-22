@@ -1,21 +1,21 @@
 import java.util.Arrays;
 
-public class AnnealP {
+public class AnnealNeighborsFive {
 
-	static boolean DEBUG = true;
+static boolean DEBUG = true;
 	
 	double N = 3;
 	boolean EXCHANGE_FLAG = false;
-	int NUM_THREADS = 200;
-	DenominationP best;
+	Denomination best;
 	long bestScore;
-	
-	public AnnealP(int n) {
+	int NUM_THREADS = 200; //in AnnealNotP it's actually not threads, just neighbors.
+
+	public AnnealNeighborsFive(int n) {
 		N = n;
 		EXCHANGE_FLAG = false;
 	}
 
-	public AnnealP(int n, boolean exchange) {
+	public AnnealNeighborsFive(int n, boolean exchange) {
 		N = n;
 		this.EXCHANGE_FLAG = exchange;
 	}
@@ -26,19 +26,18 @@ public class AnnealP {
 		}
 		return Math.exp((energy - newEnergy) / temperature);
 	}
-
-	void process() throws InterruptedException {
+	
+	void process() {
 		long startTime = System.currentTimeMillis();
-
 		double temp = 10000; // changed to 100000 from 1 million
 		double coolingRate = 0.003;
 
 		// Initialize initial solution
-		DenominationP currentSolution = new DenominationP(EXCHANGE_FLAG);
-		currentSolution.run();
+		Denomination currentSolution = new Denomination(EXCHANGE_FLAG);
+		currentSolution.changeCoins(currentSolution.generateNeighbor(true)); //round to nearest multiple of five
 
 		if (DEBUG) {
-			System.out.println("Annealing Parallel: Initial solution score: " + currentSolution.score(N));
+			System.out.println("Annealing Neighbors with Multiples of Five: Initial solution score: " + currentSolution.score(N));
 			System.out.println("	Initial Result: " + Arrays.toString(currentSolution.coinsExact));
 		}
 		
@@ -51,29 +50,21 @@ public class AnnealP {
 		while (temp > 1) {
 			//System.out.println("HERE! temp = " + temp);
 			// System.out.println("curr best: " + Arrays.toString(best.coins));
-			int c = 0;
-			Thread[] threads = new Thread[NUM_THREADS]; //we execute these.
-			DenominationP[] neighbors = new DenominationP[NUM_THREADS];
+			Denomination[] neighbors = new Denomination[NUM_THREADS];
 			
-			for (c = 0; c < NUM_THREADS; c++) { // create neighbors
-				DenominationP newSolution = null;
+			for (int c = 0; c < NUM_THREADS; c++) { // create neighbors
+				Denomination newSolution = null;
 				if (temp < 10) {
-					newSolution = new DenominationP(currentSolution.generateNeighbor(1), EXCHANGE_FLAG);
+					newSolution = new Denomination(currentSolution.generateNeighbor(true), EXCHANGE_FLAG);
 				} else {
-					newSolution = new DenominationP(currentSolution.generateNeighbor(), EXCHANGE_FLAG);
+					newSolution = new Denomination(currentSolution.generateNeighbor(true), EXCHANGE_FLAG);
 				}
 				neighbors[c] = newSolution;
-				threads[c] = new Thread(newSolution);
 			}
 
-			for (c = 0; c < NUM_THREADS; c++) { //init each thread. (call run() for each thread).
-				threads[c].start();
-				threads[c].join();
-			}
-
-			for (c = 0; c < NUM_THREADS; c++) { //do comparison for each result.
+			for (int c = 0; c < NUM_THREADS; c++) { //do comparison for each result.
 				// Get energy of solutions
-				DenominationP newSolution = neighbors[c];
+				Denomination newSolution = neighbors[c];
 				int currentEnergy = currentSolution.score(N);
 				int neighbourEnergy = newSolution.score(N);
 
@@ -100,6 +91,7 @@ public class AnnealP {
 			System.out.println("	Result: " + Arrays.toString(best.coinsExact));
 			System.out.println("	DP: " + best.printDp());
 		}
-		
+	
 	}
+
 }

@@ -1,37 +1,49 @@
 import java.util.Arrays;
 
-public class AnnealNotP {
+public class AnnealNeighbors {
 
-	static double N = 3;
-	static boolean EXCHANGE_FLAG = false;
-	static int NUM_THREADS = 200;
+	static boolean DEBUG = true;
+	
+	double N = 3;
+	boolean EXCHANGE_FLAG = false;
+	Denomination best;
+	long bestScore;
+	int NUM_THREADS = 200; //in AnnealNotP it's actually not threads, just neighbors.
 
-	public static double acceptanceProbability(int energy, int newEnergy, double temperature) {
+	public AnnealNeighbors(int n) {
+		N = n;
+		EXCHANGE_FLAG = false;
+	}
+
+	public AnnealNeighbors(int n, boolean exchange) {
+		N = n;
+		this.EXCHANGE_FLAG = exchange;
+	}
+	
+	public double acceptanceProbability(int energy, int newEnergy, double temperature) {
 		if (newEnergy < energy) {
 			return 1.0;
 		}
 		return Math.exp((energy - newEnergy) / temperature);
 	}
-
-	public static void main(String[] args) throws InterruptedException {
+	
+	void process() {
 		long startTime = System.currentTimeMillis();
-		// uncomment when ready.
-		// N = Integer.parseInt(args[0]);
-
-		// System.out.println("args[0] = " + args[0]);
-
 		double temp = 10000; // changed to 100000 from 1 million
 		double coolingRate = 0.003;
 
 		// Initialize initial solution
 		Denomination currentSolution = new Denomination(EXCHANGE_FLAG);
 
-		System.out.println("Annealing Not Parallel: Initial solution score: " + currentSolution.score(N));
-		System.out.println("Initial Result: " + Arrays.toString(currentSolution.coinsExact));
+		if (DEBUG) {
+			System.out.println("Annealing Neighbors: Initial solution score: " + currentSolution.score(N));
+			System.out.println("	Initial Result: " + Arrays.toString(currentSolution.coinsExact));
+		}
+		
 
 		// Set as current best
-		Denomination best = currentSolution;
-		long bestScore = currentSolution.score(N);
+		best = currentSolution;
+		bestScore = currentSolution.score(N);
 
 		// Loop until system has cooled
 		while (temp > 1) {
@@ -70,11 +82,14 @@ public class AnnealNotP {
 			temp *= 1 - coolingRate;
 		}
 
-		long stopTime = System.currentTimeMillis();
-		long elapsedTime = stopTime - startTime;
-		System.out.println("Elapsed Time: " + elapsedTime/1000 + " seconds");
-		System.out.println("Final solution score: " + best.score(N));
-		System.out.println("Result: " + Arrays.toString(best.coinsExact));
-		System.out.println("DP: " + best.printDp());
+		if (DEBUG) {
+			long stopTime = System.currentTimeMillis();
+			long elapsedTime = stopTime - startTime;
+			System.out.println("	Elapsed Time: " + elapsedTime/1000 + " seconds");
+			System.out.println("	Final solution score: " + best.score(N));
+			System.out.println("	Result: " + Arrays.toString(best.coinsExact));
+			System.out.println("	DP: " + best.printDp());
+		}
+	
 	}
 }
