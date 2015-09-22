@@ -3,17 +3,14 @@ import java.util.Arrays;
 public class Driver {
 	static double N;
 	static boolean exchange;
-	static boolean DEBUG_MODE = true; //turn this off for turnin
+	static boolean DEBUG_MODE = false; //turn this off for turnin
 	static String winningStrategy = null;
 	
 	//sample args: java Driver 5 exchange
 	public static void main(String[] args) throws InterruptedException {
-		N = 4.6;
-		exchange = false;
 		
-		//N = Integer.parseInt(args[0]);
-		//exchange = args[1].equals("exchange")? true : false; //if 2nd param isn't "exchange" then it runs exact.
-		
+		N = Double.parseDouble(args[0]);
+		exchange = args[1].equals("exchange")? true : false; //if 2nd param isn't "exchange" then it runs exact.
 		
 		//set debug mode
 		Random.DEBUG = DEBUG_MODE;
@@ -24,51 +21,50 @@ public class Driver {
 		AnnealNeighborsFive.DEBUG = DEBUG_MODE;
 		
 		
-		for(int j = 0; j < 30; j++) {
-			
-			N = (j+1)*(Math.random()*7 + 1);	
-			
-			//store the best.
-			Denomination best = null;
-			double bestScore = Integer.MAX_VALUE;
-			
-			//run each one and compare it to best.
-			Random r = new Random(N, exchange); r.process();
-			best = r.best; bestScore = r.bestScore;
-			
-			for (int i = 0; i < 2; i++) {
-				RandomFive rf = new RandomFive(N, exchange); 
-				rf.process();
-				if (rf.bestScore < bestScore) {
-					best = rf.best; bestScore = rf.bestScore; winningStrategy = "random five";
-				}
-				
-				Anneal a = new Anneal(N, exchange); 
-				a.process();
-				if (a.bestScore < bestScore) {
-					best = a.best; bestScore = a.bestScore; winningStrategy = "anneal";
-				}
-				
-				AnnealNeighbors anp = new AnnealNeighbors(N, exchange); 
-				anp.process();
-				if (anp.bestScore < bestScore) {
-					best = anp.best; bestScore = anp.bestScore; winningStrategy = "anneal neighbors";
-				}
-				
-				AnnealNeighborsFive anpff = new AnnealNeighborsFive(N, exchange); 
-				anpff.process();
-				if (anpff.bestScore < bestScore) {
-					best = anpff.best; bestScore = anpff.bestScore; winningStrategy = "anneal neighbors five";
-				}
-					
-			}
-			if (DEBUG_MODE) {
-				System.out.println("N = " + N);
-				System.out.println(bestScore);
-				System.out.println(winningStrategy);
-			}
-			printRes(best.coinsExact);
+		//for(int j = 0; j < 30; j++) {
+						
+		//store the best.
+		Denomination best = null;
+		double bestScore = Integer.MAX_VALUE;
+		
+		//run each one and compare it to best.
+		Random r = new Random(N, exchange); r.process();
+		best = r.best; bestScore = r.bestScore;
+		
+		//for (int i = 0; i < 2; i++) {
+		
+		RandomFive rf = new RandomFive(N, exchange); 
+		rf.process();
+		if (rf.bestScore < bestScore) {
+			best = rf.best; bestScore = rf.bestScore; winningStrategy = "random five";
 		}
+		
+		Anneal a = new Anneal(N, exchange); 
+		a.process();
+		if (a.bestScore < bestScore) {
+			best = a.best; bestScore = a.bestScore; winningStrategy = "anneal";
+		}
+		
+		AnnealNeighbors anp = new AnnealNeighbors(N, exchange); 
+		anp.process();
+		if (anp.bestScore < bestScore) {
+			best = anp.best; bestScore = anp.bestScore; winningStrategy = "anneal neighbors";
+		}
+		
+		AnnealNeighborsFive anpff = new AnnealNeighborsFive(N, exchange); 
+		anpff.process();
+		if (anpff.bestScore < bestScore) {
+			best = anpff.best; bestScore = anpff.bestScore; winningStrategy = "anneal neighbors five";
+		}
+				
+		//}
+		if (DEBUG_MODE) {
+			System.out.println("N = " + N);
+			System.out.println(bestScore);
+			System.out.println(winningStrategy);
+		}
+		printRes(best.coinsExact);
+		//}
 	}
 	
 	public static void printRes(int[] arr) {

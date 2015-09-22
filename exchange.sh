@@ -1,3 +1,3 @@
 #!/bin/bash
 
-java Anneal "$1"
+java Driver "$1" exchange
