@@ -39,7 +39,7 @@ public class Driver {
 			best = rf.best; bestScore = rf.bestScore; winningStrategy = "random five";
 		}
 		
-		for(int i = 0; i < 2; i++) {
+		for(int i = 0; i < 3; i++) {
 			AnnealNeighbors anp = new AnnealNeighbors(N, exchange); 
 			anp.process();
 			if (anp.bestScore < bestScore) {
@@ -77,6 +77,9 @@ public class Driver {
 			}
 */			
 			long currTime = System.currentTimeMillis();
+			if(DEBUG_MODE) {
+				System.out.println("LOOP #" + c + "ran in " + (currTime-startTime)/1000 + " seconds");
+			}
 			if(currTime - startTime > 100000) {
 				break;
 			}
