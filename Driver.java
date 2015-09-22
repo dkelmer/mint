@@ -39,7 +39,7 @@ public class Driver {
 			best = rf.best; bestScore = rf.bestScore; winningStrategy = "random five";
 		}
 		
-		for(int i = 0; i < 2; i++) {
+		//for(int i = 0; i < 2; i++) {
 			AnnealNeighbors anp = new AnnealNeighbors(N, exchange); 
 			anp.process();
 			if (anp.bestScore < bestScore) {
@@ -59,7 +59,7 @@ public class Driver {
 			}
 			
 				
-		}
+		//}
 		if (DEBUG_MODE) {
 			System.out.println("N = " + N);
 			System.out.println(bestScore);
