@@ -48,7 +48,7 @@ static boolean DEBUG = true;
 		
 		
 		if (DEBUG) {
-			System.out.println("	Final solution distance: " + best.score(N));
+			System.out.println("	Final solution score: " + best.score(N));
 			System.out.println("	Coins: " + Arrays.toString(best.coinsExact));
 		}
 	}
