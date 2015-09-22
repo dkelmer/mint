@@ -4,22 +4,22 @@ public class Anneal {
 	
 	static boolean DEBUG = true;
 	
-	int N = 3;
+	double N = 3;
 	boolean EXCHANGE_FLAG = false;
 	Denomination best;
-	long bestScore;
+	double bestScore;
 
-	public Anneal(int n) {
+	public Anneal(double n) {
 		N = n;
 		EXCHANGE_FLAG = false;
 	}
 
-	public Anneal(int n, boolean exchange) {
+	public Anneal(double n, boolean exchange) {
 		N = n;
 		this.EXCHANGE_FLAG = exchange;
 	}
 
-	public double acceptanceProbability(int energy, int newEnergy, double temperature) {
+	public double acceptanceProbability(double energy, double newEnergy, double temperature) {
 		if (newEnergy < energy) {
 			return 1.0;
 		}
@@ -27,7 +27,7 @@ public class Anneal {
 	}
 
 	void process() {
-		double temp = 100000; // changed to 100000 from 1 million
+		double temp = 1000000; // changed to 100000 from 1 million
 		double coolingRate = 0.00002;
 
 		// Initialize initial solution
@@ -44,10 +44,7 @@ public class Anneal {
 
 		// Loop until system has cooled
 		while (temp > 1) {
-			// System.out.println("HERE! temp = " + temp);
-			// System.out.println("curr best: " + Arrays.toString(best.coins));
-			int c = 0;
-			// while (c < 100) {
+
 			// Create new neighbor
 			Denomination newSolution = null;
 
@@ -58,8 +55,8 @@ public class Anneal {
 			}
 
 			// Get energy of solutions
-			int currentEnergy = currentSolution.score(N);
-			int neighbourEnergy = newSolution.score(N);
+			double currentEnergy = currentSolution.score(N);
+			double neighbourEnergy = newSolution.score(N);
 
 			// Keep track of the best solution found
 			if (currentEnergy < bestScore) {
@@ -72,8 +69,6 @@ public class Anneal {
 				currentSolution = newSolution;
 			}
 
-			c++;
-			// }
 			// Cool system
 			temp *= 1 - coolingRate;
 		}
@@ -86,18 +81,3 @@ public class Anneal {
 	}
 }
 
-/*
- * Denomination newSolution = null; if (temp > 800000) { newSolution = new
- * Denomination(currentSolution.generateNeighbor(40)); } else if (temp > 500000)
- * { newSolution = new Denomination(currentSolution.generateNeighbor(30)); }
- * else if (temp > 200000) { newSolution = new
- * Denomination(currentSolution.generateNeighbor(25)); } else if (temp > 100000)
- * { newSolution = new Denomination(currentSolution.generateNeighbor(20)); }
- * else if (temp > 50000) { newSolution = new
- * Denomination(currentSolution.generateNeighbor(15)); } else if (temp > 10000)
- * { newSolution = new Denomination(currentSolution.generateNeighbor(10)); }
- * else if (temp > 5000) { newSolution = new
- * Denomination(currentSolution.generateNeighbor(5)); } else { newSolution = new
- * Denomination(currentSolution.generateNeighbor(3)); }
- * 
- */

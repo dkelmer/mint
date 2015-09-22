@@ -4,16 +4,16 @@ public class Random {
 
 	static boolean DEBUG = true;
 	
-	int N = 100;
+	double N = 100;
 	Denomination best;
-	long bestScore;
+	double bestScore;
 	boolean EXCHANGE_FLAG;
 	
-	public Random(int n) {
+	public Random(double n) {
 		N = n;
 	}
 	
-	public Random(int n, boolean exchange) {
+	public Random(double n, boolean exchange) {
 		N = n;
 		this.EXCHANGE_FLAG = exchange;
 	}
@@ -36,7 +36,7 @@ public class Random {
 		while (temp > 1) {
 			// System.out.println(count);
 			Denomination curr = new Denomination(EXCHANGE_FLAG);
-			long currScore = curr.score(N);
+			double currScore = curr.score(N);
 			if (currScore < bestScore) {
 				best = curr;
 				bestScore = currScore;

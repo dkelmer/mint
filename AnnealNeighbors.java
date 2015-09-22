@@ -7,20 +7,20 @@ public class AnnealNeighbors {
 	double N = 3;
 	boolean EXCHANGE_FLAG = false;
 	Denomination best;
-	long bestScore;
+	double bestScore;
 	int NUM_THREADS = 200; //in AnnealNotP it's actually not threads, just neighbors.
 
-	public AnnealNeighbors(int n) {
+	public AnnealNeighbors(double n) {
 		N = n;
 		EXCHANGE_FLAG = false;
 	}
 
-	public AnnealNeighbors(int n, boolean exchange) {
+	public AnnealNeighbors(double n, boolean exchange) {
 		N = n;
 		this.EXCHANGE_FLAG = exchange;
 	}
 	
-	public double acceptanceProbability(int energy, int newEnergy, double temperature) {
+	public double acceptanceProbability(double energy, double newEnergy, double temperature) {
 		if (newEnergy < energy) {
 			return 1.0;
 		}
@@ -64,8 +64,8 @@ public class AnnealNeighbors {
 			for (int c = 0; c < NUM_THREADS; c++) { //do comparison for each result.
 				// Get energy of solutions
 				Denomination newSolution = neighbors[c];
-				int currentEnergy = currentSolution.score(N);
-				int neighbourEnergy = newSolution.score(N);
+				double currentEnergy = currentSolution.score(N);
+				double neighbourEnergy = newSolution.score(N);
 
 				// Keep track of the best solution found
 				if (currentEnergy < bestScore) {

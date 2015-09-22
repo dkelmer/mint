@@ -110,8 +110,8 @@ public class DenominationP extends Denomination implements Runnable {
 		}		
 	}
 
-	public int score(double N) {
-		int result = 0;
+	public double score(double N) {
+		double result = 0;
 		if(exchangeFlag) {
 			for (int i = 1; i < bestExchange.length; i++) {
 				result += i % 5 == 0 ? bestExchange[i] * N : bestExchange[i];

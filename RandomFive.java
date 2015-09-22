@@ -3,16 +3,16 @@ import java.util.Arrays;
 public class RandomFive {
 static boolean DEBUG = true;
 	
-	int N = 100;
+	double N = 100;
 	Denomination best;
-	long bestScore;
+	double bestScore;
 	boolean EXCHANGE_FLAG;
 	
-	public RandomFive(int n) {
+	public RandomFive(double n) {
 		N = n;
 	}
 	
-	public RandomFive(int n, boolean exchange) {
+	public RandomFive(double n, boolean exchange) {
 		N = n;
 		this.EXCHANGE_FLAG = exchange;
 	}
@@ -38,7 +38,7 @@ static boolean DEBUG = true;
 			Denomination curr = new Denomination(EXCHANGE_FLAG);
 			curr.changeCoins(curr.generateNeighbor(true)); //round to nearest multiple of five
 
-			long currScore = curr.score(N);
+			double currScore = curr.score(N);
 			if (currScore < bestScore) {
 				best = curr;
 				bestScore = currScore;

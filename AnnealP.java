@@ -8,19 +8,19 @@ public class AnnealP {
 	boolean EXCHANGE_FLAG = false;
 	int NUM_THREADS = 200;
 	DenominationP best;
-	long bestScore;
+	double bestScore;
 	
-	public AnnealP(int n) {
+	public AnnealP(double n) {
 		N = n;
 		EXCHANGE_FLAG = false;
 	}
 
-	public AnnealP(int n, boolean exchange) {
+	public AnnealP(double n, boolean exchange) {
 		N = n;
 		this.EXCHANGE_FLAG = exchange;
 	}
 	
-	public double acceptanceProbability(int energy, int newEnergy, double temperature) {
+	public double acceptanceProbability(double energy, double newEnergy, double temperature) {
 		if (newEnergy < energy) {
 			return 1.0;
 		}
@@ -74,8 +74,8 @@ public class AnnealP {
 			for (c = 0; c < NUM_THREADS; c++) { //do comparison for each result.
 				// Get energy of solutions
 				DenominationP newSolution = neighbors[c];
-				int currentEnergy = currentSolution.score(N);
-				int neighbourEnergy = newSolution.score(N);
+				double currentEnergy = currentSolution.score(N);
+				double neighbourEnergy = newSolution.score(N);
 
 				// Keep track of the best solution found
 				if (currentEnergy < bestScore) {
