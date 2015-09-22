@@ -80,7 +80,7 @@ public class Driver {
 			if(DEBUG_MODE) {
 				System.out.println("LOOP #" + c + "ran in " + (currTime-startTime)/1000 + " seconds");
 			}
-			if(currTime - startTime > 100000) {
+			if(currTime - startTime > 85000) {
 				break;
 			}
 			c++;
