@@ -39,7 +39,7 @@ public class Driver {
 			best = rf.best; bestScore = rf.bestScore; winningStrategy = "random five";
 		}
 		
-		for(int i = 0; i < 3; i++) {
+		for(int i = 0; i < 2; i++) {
 			AnnealNeighbors anp = new AnnealNeighbors(N, exchange); 
 			anp.process();
 			if (anp.bestScore < bestScore) {
@@ -51,46 +51,20 @@ public class Driver {
 			if (anpff.bestScore < bestScore) {
 				best = anpff.best; bestScore = anpff.bestScore; winningStrategy = "anneal neighbors five";
 			}
-		}
-		
-		
-		//for (int i = 0; i < 5; i++) {
-		int c = 0;
-		while(true) {
 			
 			Anneal a = new Anneal(N, exchange); 
 			a.process();
 			if (a.bestScore < bestScore) {
 				best = a.best; bestScore = a.bestScore; winningStrategy = "anneal";
 			}
-/*			
-			AnnealNeighbors anp = new AnnealNeighbors(N, exchange); 
-			anp.process();
-			if (anp.bestScore < bestScore) {
-				best = anp.best; bestScore = anp.bestScore; winningStrategy = "anneal neighbors";
-			}
 			
-			AnnealNeighborsFive anpff = new AnnealNeighborsFive(N, exchange); 
-			anpff.process();
-			if (anpff.bestScore < bestScore) {
-				best = anpff.best; bestScore = anpff.bestScore; winningStrategy = "anneal neighbors five";
-			}
-*/			
-			long currTime = System.currentTimeMillis();
-			if(DEBUG_MODE) {
-				System.out.println("LOOP #" + c + "ran in " + (currTime-startTime)/1000 + " seconds");
-			}
-			if(currTime - startTime > 85000) {
-				break;
-			}
-			c++;
 				
 		}
 		if (DEBUG_MODE) {
 			System.out.println("N = " + N);
 			System.out.println(bestScore);
 			System.out.println(winningStrategy);
-			System.out.println("num cycles = " + c);
+			//System.out.println("num cycles = " + c);
 		}
 		printRes(best.coinsExact);
 		//}
